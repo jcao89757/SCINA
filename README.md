@@ -1,2 +1,2 @@
 # SCINA
-A semi-supervised category identification and assignment tool
+A semi-supervised category identification and assignment tool.
