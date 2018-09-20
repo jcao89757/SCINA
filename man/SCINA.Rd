@@ -22,7 +22,9 @@ SCINA(exp, signatures, max_iter = 100, convergence_n = 10, convergence_rate = 0.
 
 \item{allow_unknown}{A binary value, default 1 (TRUE). If 0 (FALSE) then no cell will be assigned to the 'unknown' category.}
 
-\item{covergence_n}{An integer > 0. Default is 10. Stop the EM algorithm if during the last n rounds of iterations, cell type assignment keeps steady above the convergence_rate.}
+\item{convergence_n}{An integer > 0. Default is 10. Stop the EM algorithm if during the last n rounds of iterations, cell type assignment keeps steady above the convergence_rate.}
+
+\item{log_file}{A string names the record of the running status of the SCINA algorithem, default 'SCINA.log'.}
 }
 \details{ 
   More detailed information can be found from our web server: \url{
@@ -56,8 +58,8 @@ probabilities return a probability matrix indicating the predicted probability f
 An automatic cell type detection and assignment algorithm for single cell RNA-Seq (scRNA-seq) and Cytof/FACS data.
 }
 \examples{
-load(system.file('example','example_expmat.RData', package = "SCINA"))
-load(system.file('example','example_signatures.RData', package = "SCINA"))
+load(system.file('extdata','example_expmat.RData', package = "SCINA"))
+load(system.file('extdata','example_signatures.RData', package = "SCINA"))
 exp = exp_test$exp_data
 results = SCINA(exp, signatures, max_iter = 120, convergence_n = 12, 
     convergence_rate = 0.999, sensitivity_cutoff = 0.9)

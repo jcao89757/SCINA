@@ -15,6 +15,3 @@ A list of signature gene lists as an input for SCINA.
 \description{
 A function to convert signatures uploaded via .csv files to lists used by SCINA.
 }
-\examples{
-signatures = preprocess.signatures("./example/example_signatures.csv")
-}
