@@ -1,3 +1,36 @@
+#######################################################################
+#SCINA: A Semi-Supervised Category Identification and Assignment Tool.
+#Maintainer: Ze Zhang, <ze.zhang@utsouthwestern.edu>
+#######################################################################
+
+#Description: 
+#' An automatic cell type detection and assignment algorithm for single cell RNA-Seq (scRNA-seq) and Cytof/FACS data. 
+#' SCINA is capable of assigning cell type identities to a pool of cells profiled by scRNA-Seq or Cytof/FACS data with prior knowledge of identifiers, 
+#' such as genes and protein symbols,that are highly or lowly expressed in each category. 
+#' See Ze Z, Danni L, et al (2018) for more details.
+
+#Dependencies:
+#' @import MASS
+#' @importFrom gplots heatmap.2
+
+#Parameters:
+#' @param exp A normalized matrix representing the target dataset. Columns correpond to objects (cell barcodes for example), rows correspond to attributes or variables (gene symbols for example).
+#' @param signatures A list contains multiple signature identifier lists. Each signature identifier list (genes for example) represents prior knowledge for one category (cell type for example), containing genes or protein symbols with high degree of detection.
+#' @param max_iter An integer > 0. Default is 100. Max iterations allowed for the EM algorithm.
+#' @param covergence_n An integer > 0. Default is 10. Stop the EM algorithm if during the last n rounds of iterations, cell type assignment keeps steady above the convergence_rate.
+#' @param convergence_rate A float between 0 and 1. Default is 0.99. Percentage of cells for which the type assignment remains stable for the last n rounds. 
+#' @param sensitivity_cutoff A float between 0 and 1. Default is 1. The cutoff to remove signatures whose cells types are deemed as non-existent at all in the data by the SCINA algorithm. 
+#' @param rm_overlap A binary value, default 1 (TRUE), denotes that shared symbols between signature lists will be removed. If 0 (FALSE) then allows different cell types to share the same identifiers.
+#' @param allow_unknown A binary value, default 1 (TRUE). If 0 (FALSE) then no cell will be assigned to the 'unknown' category.
+#' @param log_file A string names the record of the running status of the SCINA algorithem, default 'SCINA.log'.
+
+#Outputs:
+#' @return cell_labels A vector contains cell type mapping results for each cell.
+#' @return probabilities A probability matrix indicating the predicted probability for each cell belongs to each cell type respectively.
+
+#Usage:
+#' SCINA(exp,signatures,max_iter,convergence_n,convergence_rate,sensitivity_cutoff,rm_overlap,allow_unknown,log_file)
+
 SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.99,
                sensitivity_cutoff=1,rm_overlap=1,allow_unknown=1,log_file='SCINA.log')
   {
