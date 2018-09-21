@@ -31,8 +31,21 @@ R (version 2.15.0 or later)
 
 **R Packages**
 
-MASS, gplots, devtools(installation from GitHub only)
+MASS, gplots, devtools (installation from GitHub only)
 ## Guided Tutorial
+The SCINA model takes at least two input data matracies to predict categories.
+1. A normalized matrix representing the target dataset. Columns correpond to objects (cell barcodes for example), rows correspond to attributes or variables (gene symbols for example). 
+2. A list contains multiple signature identifier lists. Each signature identifier list (genes for example) represents prior knowledge for one category (cell type for example), containing genes or protein symbols with high degree of detection.
+
+Both matrices can be uploaded from .Rdata files or .csv files. If the target dataset is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column contains one signature list, and its column name should be the name of the category. Each signature identifier list contains gene or protein symbols. The identifier lists do not need to have the same length **(Fig.2)**.
+![exp_example](exp_example_format.jpg)
+
+**Fig.1 |** An example of a target dataset in .csv format.
+![signature_example](exp_signature_format.jpg)
+
+**Fig.2 |** An example of signature lists in .csv format.
+
+For this tutorial, we will be predicting cell types from a trimmed single-cell RNA sequencing (scRNA-seq) data matrix freely available from 10X Genomics. The signatures we 
 ### Prepare input data
 ### Standard pre-processing workflow
 ### Set model parameters
