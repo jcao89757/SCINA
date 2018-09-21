@@ -49,6 +49,16 @@ Both matrices can be uploaded from .Rdata files or .csv files. If the target dat
 
 **Fig.2 |** An example of signature lists in .csv format.
 
+After downloading, please load the matrices to your R environment.
+```{r}
+#.Rdata examples
+load(system.file('extdata','example_expmat.RData', package = "SCINA"))
+load(system.file('extdata','example_signatures.RData', package = "SCINA"))
+
+# Or .csv examples
+exp_test=read.csv('your/path/to/example_expmat.csv',row.names=1,stringsAsFactors = F)
+signatures=preprocess.signatures('your/path/to/example_signatures.csv')
+```
 ### Standard pre-processing workflow
 ### Set model parameters
 ### Predict object categories with SCINA
