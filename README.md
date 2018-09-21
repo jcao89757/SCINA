@@ -38,10 +38,10 @@ The SCINA model takes at least two input data matracies to predict categories.
 2. A list contains multiple signature identifier lists. Each signature identifier list (genes for example) represents prior knowledge for one category (cell type for example), containing genes or protein symbols with high degree of detection.
 
 Both matrices can be uploaded from .Rdata files or .csv files. If the target dataset is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column contains one signature list, and its column name should be the name of the category. Each signature identifier list contains gene or protein symbols. The identifier lists do not need to have the same length **(Fig.2)**.
-![exp_example](exp_example_format.jpg)
+![exp_example](exp_example.jpg)
 
 **Fig.1 |** An example of a target dataset in .csv format.
-![signature_example](exp_signature_format.jpg)
+![exp_signature](exp_signature.jpg)
 
 **Fig.2 |** An example of signature lists in .csv format.
 
