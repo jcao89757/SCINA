@@ -1,14 +1,15 @@
 Package: SCINA
 Type: Package
-Title: Automatic and Accurate Cell Type Detection of Single Cell
-        RNA-Seq Data
+Title: A Semi-Supervised Category Identification and Assignment Tool
 Version: 1.0.0
-Date: 2018-06-16
+Date: 2018-09-18
 Author: Ze Zhang
 Maintainer: Ze Zhang <Ze.Zhang@utsouthwestern.edu>
-Depends: R (>= 2.15.0), MASS, preprocessCore
-Description: SCINA (Single-cell EM model-based NGS sorting algorithm), a cell type detection and automatically assignment algorithm for single cell RNA-Seq (scRNA-seq) and Cytof/FACS data. SCINA is capable of taking pre-established cell types with transcriptome biomarker genes to assign each cell a unique cell type and/or defining cell types and gene signatures with pre-labeled RNA expression matrix. 
+Depends: R (>= 2.15.0), MASS, gplots
+Description: An automatic cell type detection and assignment algorithm for single cell RNA-Seq and Cytof/FACS data. SCINA is capable of assigning cell type identities to a pool of cells profiled by scRNA-Seq or Cytof/FACS data with prior knowledge of markers, such as genes and protein symbols that are highly or lowly expressed in each category. See Ze Z, Danni L, et al (2018) for more details.
+URL: http://lce.biohpc.swmed.edu/scina/
+        https://github.com/jcao89757/SCINA
 License: GPL-2
 NeedsCompilation: no
 RoxygenNote: 6.1.0
-Packaged: 2018-09-02 02:59:27 UTC; s421955
+Packaged: 2018-09-20 21:02:58 UTC; s421955
