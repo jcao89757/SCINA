@@ -104,5 +104,12 @@ More detail of outputs is described in the below table.
 |cell_labels|A vector contains cell type predictive results for each cell.|
 |probabilities|A probability matrix indicating the predicted probability for each cell belongs to each cell type respectively.|
 ### Result visualization
+We provide a function to plot SCINA results in a heatmap. The function would take the expression matrix, the signature lists and the SCINA results as inputs, and returns a heatmap showing signature symbols' expression levels, grouped with SCINA predicted cell types (Fig.3).
+```{r}
+plotheat.SCINA(exp, results, signatures)
+```
+
+![plot_example](plot_example.jpg)
+
 ## Version update
 1.0.0: First release. (09-20-2018)
