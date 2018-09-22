@@ -111,5 +111,7 @@ plotheat.SCINA(exp, results, signatures)
 
 ![plot_example](plot_example.jpg)
 
+**Fig.3 |** An example of the output heatmap.
+
 ## Version update
 1.0.0: First release. (09-20-2018)
