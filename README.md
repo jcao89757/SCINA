@@ -54,14 +54,55 @@ After downloading, please load the matrices to your R environment.
 #.Rdata examples
 load(system.file('extdata','example_expmat.RData', package = "SCINA"))
 load(system.file('extdata','example_signatures.RData', package = "SCINA"))
+exp = exp_test$exp_data
 
 # Or .csv examples
-exp_test=read.csv('your/path/to/example_expmat.csv',row.names=1,stringsAsFactors = F)
+exp=read.csv('your/path/to/example_expmat.csv',row.names=1,stringsAsFactors = F)
 signatures=preprocess.signatures('your/path/to/example_signatures.csv')
 ```
 ### Standard pre-processing workflow
+The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve a best performance on their scRNA-seq raw counts.
+```{r}
+#Install preprocessCore if required
+source("http://bioconductor.org/biocLite.R")
+biocLite("preprocessCore")
+library('preprocessCore')
+#Read data
+exp_raw=read.csv('your/path/to/raw/expression_matrix.csv',row.names=1,stringsAsFactors = F)
+#Avoid NAs
+exp_raw[is.na(exp_raw)]=0
+#Log scale and quantile normalization
+exp_raw=log(exp_raw+1)
+exp=normalize.quantiles(exp_raw)
+```
 ### Set model parameters
+The SCINA algorithm has multiple parameters that users may tune to achieve a better performance. The table below contains description of those parameters.
+
+|Parameters|Details|
+|----------|-------|
+|max_iter|An integer > 0. Default is 100. Max iterations allowed for SCINA algorithm.|
+|convergence_n|An integer > 0. Default is 10. Stop SCINA if during the last n rounds of iterations, cell type assignment keeps steady above the convergence_rate.|
+|convergence_rate|A float between 0 and 1. Default is 0.99. Percentage of cells for which the type assignment remains stable for the last n rounds.|
+|sensitivity_cutoff|A float between 0 and 1. Default is 1. The cutoff to remove signatures whose cells types are deemed as non-existent at all in the data by SCINA.|
+|rm_overlap|A binary value, default 1 (TRUE), denotes that shared symbols between signature lists will be removed. If 0 (FALSE) then allows different cell types to share the same identifiers.|
+|allow_unknown|A binary value, default 1 (TRUE). If 0 (FALSE) then no cell will be assigned to the 'unknown' category.|
+
+In addition to the parameters, SCINA may generate a log file to record the running status and errors. Please specify a string as the log file's name (and input the string as 'log_file'), path may be included in the string. The default log_file is 'SCINA.log'
+
 ### Predict object categories with SCINA
+SCINA can generate two output lists in a result class for processed data matrix. 
+```{r}
+results = SCINA(exp, signatures, max_iter = 100, convergence_n = 10, 
+    convergence_rate = 0.999, sensitivity_cutoff = 0.9, rm_overlap=TRUE, allow_unknown=TRUE, log_file='SCINA.log')
+View(results$cell_labels)
+View(results$probabilities)
+```
+More detail of outputs is described in the below table.
+
+|Output|Details|
+|------|-------|
+|cell_labels|A vector contains cell type predictive results for each cell.|
+|probabilities|A probability matrix indicating the predicted probability for each cell belongs to each cell type respectively.|
 ### Result visualization
 ## Version update
 1.0.0: First release. (09-20-2018)
