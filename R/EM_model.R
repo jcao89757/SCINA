@@ -34,11 +34,15 @@
 SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.99,
                sensitivity_cutoff=1,rm_overlap=1,allow_unknown=1,log_file='SCINA.log'){
   cat('Start running SCINA.',file=log_file,append=F)
+  cat('\n',file=log_file,append=T)
+  #Create a status file for the webserver
+  status_file=paste(log_file,'status',sep='.')
   all_sig=unique(unlist(signatures))
   # Create low-expression signatures.
   invert_sigs=grep('^low_',all_sig,value=T)
   if(!identical(invert_sigs, character(0))){
     cat('Converting expression matrix for low_genes.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     invert_sigs_2add=unlist(lapply(invert_sigs,function(x) strsplit(x,'_')[[1]][2]))
     invert_sigs=invert_sigs[invert_sigs_2add%in%row.names(exp)]
     invert_sigs_2add=invert_sigs_2add[invert_sigs_2add%in%row.names(exp)]
@@ -48,8 +52,13 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
     rm(sub_exp,all_sig,invert_sigs,invert_sigs_2add)
   }
   # Check input parameters.
-  quality=check.inputs(exp,signatures,max_iter,convergence_n,convergence_rate,sensitivity_cutoff,rm_overlap,log_file)
-  if(quality$qual==0){cat('EXITING due to invalid parameters.',file=log_file,append=T,sep='\n');stop('SCINA stopped.')}
+  quality=check.inputs(exp,signatures,max_iter,convergence_n,convergence_rate,sensitivity_cutoff,rm_overlap,log_file,status_file)
+  if(quality$qual==0){
+    cat('EXITING due to invalid parameters.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
+    cat('0',file=status_file,append=F)
+    stop('SCINA stopped.')
+  }
   signatures=quality$sig
   max_iter=quality$para[1]
   convergence_n=quality$para[2]
@@ -111,7 +120,9 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
       labels[,labels_i]=apply(rbind(1-colSums(prob_mat),prob_mat),2,which.max)-1
       # Compare estimations with stop rules.
       if(mean(apply(labels,1,function(x) length(unique(x))==1))>=convergence_rate){
-        cat('Job finished successfully.',file=log_file,append=T,sep='\n')
+        cat('Job finished successfully.',file=log_file,append=T)
+        cat('\n',file=log_file,append=T)
+        cat('1',file=status_file,append=F)
         break
       }
       labels_i=labels_i+1
@@ -119,7 +130,8 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
         labels_i=1
       }
       if(iter==max_iter){
-        cat('Maximum iterations, breaking out.',file=log_file,append=T,sep='\n')
+        cat('Maximum iterations, breaking out.',file=log_file,append=T)
+        cat('\n',file=log_file,append=T)
       }
     }
     #Build result matrices.
@@ -132,7 +144,8 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
       unsatisfied=0
     }else{
       rev=which(dummytest>sensitivity_cutoff);
-      cat(paste('Remove dummy signatures:',rev,sep=' '),file=log_file,append=T,sep='\n');
+      cat(paste('Remove dummy signatures:',rev,sep=' '),file=log_file,append=T)
+      cat('\n',file=log_file,append=T)
       signatures=signatures[-rev]
       tmp=1-sum(tao)
       tao=tao[-rev]
