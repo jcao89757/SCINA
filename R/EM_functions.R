@@ -30,12 +30,15 @@ check.inputs=function(exp, signatures, max_iter, convergence_n, convergence_rate
   allgenes=row.names(exp)
   # Check sequence matrices.
   if (any(is.na(exp))){
-    cat('NA exists in expression matrix.',file=log_file,append=T,sep='\n')
+    cat('NA exists in expression matrix.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     quality=0
   }
   # Check signatures.
   if (any(is.na(signatures))){
-    cat('Null cell type signature genes.',file=log_file,append=T,sep='\n');quality=0
+    cat('Null cell type signature genes.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
+    quality=0
   }else{
     signatures=sapply(signatures,function(x) unique(x[(!is.na(x)) & (x %in% allgenes)]),simplify=F)
     # Remove duplicate genes.
@@ -48,24 +51,29 @@ check.inputs=function(exp, signatures, max_iter, convergence_n, convergence_rate
   }
   # Clean other parameters.
   if (is.na(convergence_n)){
-    cat('Using convergence_n=default',file=log_file,append=T,sep='\n')
+    cat('Using convergence_n=default',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     convergence_n=def_conv_n
   }
   if (is.na(max_iter)){
-    cat('Using max_iter=default',file=log_file,append=T,sep='\n')
+    cat('Using max_iter=default',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     max_iter=def_max_iter
   }else{
     if (max_iter<convergence_n){
-      cat('Using max_iter=default due to smaller than convergence_n.',file=log_file,append=T,sep='\n')
-      max_iter=convergence_n # this theorectically, still doesn't ensure max_iter>convergence_n (Tao)
+      cat('Using max_iter=default due to smaller than convergence_n.',file=log_file,append=T)
+      cat('\n',file=log_file,append=T)
+      max_iter=convergence_n 
     }
   }
   if (is.na(convergence_rate)){
-    cat('Using convergence_rate=default.',file=log_file,append=T,sep='\n')
+    cat('Using convergence_rate=default.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     convergence_rate=def_conv_rate
   }
   if (is.na(sensitivity_cutoff)){
-    cat('Using sensitivity_cutoff=default.',file=log_file,append=T,sep='\n')
+    cat('Using sensitivity_cutoff=default.',file=log_file,append=T)
+    cat('\n',file=log_file,append=T)
     sensitivity_cutoff=def_dummycut
   }
   # Return cleaned parameters.
