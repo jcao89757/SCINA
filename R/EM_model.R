@@ -52,7 +52,7 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
     rm(sub_exp,all_sig,invert_sigs,invert_sigs_2add)
   }
   # Check input parameters.
-  quality=check.inputs(exp,signatures,max_iter,convergence_n,convergence_rate,sensitivity_cutoff,rm_overlap,log_file,status_file)
+  quality=check.inputs(exp,signatures,max_iter,convergence_n,convergence_rate,sensitivity_cutoff,rm_overlap,log_file)
   if(quality$qual==0){
     cat('EXITING due to invalid parameters.',file=log_file,append=T)
     cat('\n',file=log_file,append=T)
