@@ -31,11 +31,11 @@ MASS, gplots, devtools (installation from GitHub only)
 ## Guided Tutorial
 For this tutorial, we will be predicting cell types from a toy example, a single-cell RNA sequencing (scRNA-seq) data matrix freely available from 10X Genomics. The signatures we used as prior knowledge are extracted from the eTME signatures. For more detail please refer to our paper:["An Empirical Approach Leveraging Tumorgrafts to Dissect the Tumor Microenvironment in Renal Cell Carcinoma Identifies Missing Link to Prognostic Inflammatory Factors."](http://cancerdiscovery.aacrjournals.org/content/early/2018/06/08/2159-8290.CD-17-1246). All the data we need for this tutorial is availiable [here](https://github.com/jcao89757/SCINA/tree/master/inst/extdata).
 ### Prepare input data
-The SCINA model takes at least two input data matracies to predict categories.
-1. A normalized matrix representing the target dataset. Columns correpond to objects (cell barcodes for example), rows correspond to attributes or variables (gene symbols for example). Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.csv) for the target expression matrix.
-2. A list contains multiple signature identifier lists. Each signature identifier list (genes for example) represents prior knowledge for one category (cell type for example), containing genes or protein symbols with high degree of detection. Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.csv) for the signature lists.
+The SCINA model takes at least two input data matrices to predict categories.
+1. A normalized matrix representing the gene expression levels. Columns correpond to cells, rows correspond to genes or protein symbols. Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.csv) as examples.
+2. A list contains multiple signature gene vectors. Each vector of genes represents prior knowledge for one cell type, containing genes or protein symbols with high degree of detection. Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.csv) for the list of signatures.
 
-Both matrices can be uploaded from .Rdata files or .csv files. If the target dataset is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column contains one signature list, and its column name should be the name of the category. Each signature identifier list contains gene or protein symbols. The identifier lists do not need to have the same length **(Fig.2)**.
+Both matrices can be uploaded from .Rdata files or .csv files. If the gene expression matrix is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column of the .csv file contains one signature list, and its column name should be the name of the cell type. Each signature vector contains genes or protein symbols. The signature vectors do not need to have the same length **(Fig.2)**.
 
 ![exp_example](exp_example.jpg)
 
@@ -57,7 +57,7 @@ exp=read.csv('your/path/to/example_expmat.csv',row.names=1,stringsAsFactors = F)
 signatures=preprocess.signatures('your/path/to/example_signatures.csv')
 ```
 ### Standard pre-processing workflow
-The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve a best performance on their scRNA-seq raw counts.
+The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve the best performance on their scRNA-seq raw counts.
 ```{r}
 #Install preprocessCore if required
 source("http://bioconductor.org/biocLite.R")
@@ -65,11 +65,9 @@ biocLite("preprocessCore")
 library('preprocessCore')
 #Read data
 exp_raw=read.csv('your/path/to/raw/expression_matrix.csv',row.names=1,stringsAsFactors = F)
-#Avoid NAs
-exp_raw[is.na(exp_raw)]=0
 #Log scale and quantile normalization
 exp_raw=log(exp_raw+1)
-exp=normalize.quantiles(exp_raw)
+exp[]=normalize.quantiles(exp_raw)
 ```
 ### Set model parameters
 The SCINA algorithm has multiple parameters that users may tune to achieve a better performance. The table below contains description of those parameters.
