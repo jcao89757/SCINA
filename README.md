@@ -80,25 +80,24 @@ The SCINA algorithm has multiple parameters that users may tune to achieve a bet
 |sensitivity_cutoff|A float between 0 and 1. Default is 1. The cutoff to remove signatures whose cells types are deemed as non-existent at all in the data by SCINA.|
 |rm_overlap|A binary value, default 1 (TRUE), denotes that shared symbols between signature lists will be removed. If 0 (FALSE) then allows different cell types to share the same identifiers.|
 |allow_unknown|A binary value, default 1 (TRUE). If 0 (FALSE) then no cell will be assigned to the 'unknown' category.|
+|log_file|A name string denoting a record for the SCINA running status, path may be included. Default is 'SCINA.log'.|
 
-In addition to the parameters, SCINA may generate a log file to record the running status and errors. Please specify a string as the log file's name (and input the string as 'log_file'), path may be included in the string. The default log_file is 'SCINA.log'
-
-### Predict object categories with SCINA
-SCINA can generate two output lists in a result class for processed data matrix. 
+### Predict cell types with SCINA
+SCINA can generate two output matrices in a result list.
 ```{r}
 results = SCINA(exp, signatures, max_iter = 100, convergence_n = 10, 
     convergence_rate = 0.999, sensitivity_cutoff = 0.9, rm_overlap=TRUE, allow_unknown=TRUE, log_file='SCINA.log')
 View(results$cell_labels)
 View(results$probabilities)
 ```
-More detail of outputs is described in the below table.
+More detail of the result is described in the table below.
 
 |Output|Details|
 |------|-------|
-|cell_labels|A vector contains cell type predictive results for each cell.|
-|probabilities|A probability matrix indicating the predicted probability for each cell belongs to each cell type respectively.|
+|cell_labels|A vector contains cell type predictions for each cell.|
+|probabilities|A probability matrix indicating the predicted probability for each cell belonging to each cell type, respectively.|
 ### Result visualization
-We provide a function to plot SCINA results in a heatmap. The function would take the expression matrix, the signature lists and the SCINA results as inputs, and returns a heatmap showing signature symbols' expression levels, grouped with SCINA predicted cell types **(Fig.3)**.
+We provide a function to plot SCINA results in a heatmap. The function takes the expression matrix, the signature lists and the SCINA results as input, and returns a heatmap showing signature genes' expression levels, grouped with SCINA predicted cell types **(Fig.3)**.
 ```{r}
 plotheat.SCINA(exp, results, signatures)
 ```
