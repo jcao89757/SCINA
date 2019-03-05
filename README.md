@@ -7,6 +7,7 @@ Please refer to our paper for more details of SCINA:
 ["SCINA: Semi-Supervised Typing of Single Cells *in silico*"](url pending) Zhang Z, Luo D, et al., 2018
 
 Or please check our web server to run SCINA on the clould: http://lce.biohpc.swmed.edu/scina 
+
 Researchers searching for more bioinformatics tools please visit our lab website: https://qbrc.swmed.edu/labs/wanglab/index.php
 ## Getting started with SCINA
 The SCINA algorithm is implemented in R. Users who are not famaliar with basic R programming are suggested to use our web server to run SCINA with a user-friendly GUI. 
