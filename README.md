@@ -58,7 +58,7 @@ exp=read.csv('your/path/to/example_expmat.csv',row.names=1,stringsAsFactors = F)
 signatures=preprocess.signatures('your/path/to/example_signatures.csv')
 ```
 ### Standard pre-processing workflow
-The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve the best performance on their scRNA-seq raw counts.
+The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve the best performance on their scRNA-seq raw counts. The log-transformation is always stggested to avoid heavy-tailed datasets.
 ```{r}
 #Install preprocessCore if required
 source("http://bioconductor.org/biocLite.R")
