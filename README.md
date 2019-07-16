@@ -4,7 +4,7 @@
 SCINA is an automatic cell type detection and assignment algorithm for single cell RNA-Seq (scRNA-seq) and Cytof/FACS data. SCINA is capable of assigning cell type identities to a pool of cells profiled by scRNA-Seq or Cytof/FACS data with prior knowledge of signatures, such as genes and protein symbols, that are highly-expressed (or lowly-expressed) in each category. 
 
 Please refer to our paper for more details of SCINA:
-["SCINA: A Semi-Supervised Subtyping Algorithm of Single Cells and Bulk Samples"](https://www.mdpi.com/2073-4425/10/7/531) Zhang Z, Luo D, et al., 2018
+["SCINA: A Semi-Supervised Subtyping Algorithm of Single Cells and Bulk Samples"](https://www.mdpi.com/2073-4425/10/7/531), Zhang Z, Luo D, et al., 2018
 
 Or please check our web server to run SCINA on the clould: http://lce.biohpc.swmed.edu/scina 
 
