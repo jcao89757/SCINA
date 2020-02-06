@@ -80,6 +80,11 @@ SCINA=function(exp,signatures,max_iter=100,convergence_n=10,convergence_rate=0.9
     theta[[i]]$sigma1=diag(tmp,ncol = length(tmp))
     theta[[i]]$sigma2=theta[[i]]$sigma1
   }
+  for(marker_set in 1:length(theta)){
+    if(is_empty(theta[[marker_set]]$sigma1) == TRUE){
+      theta <- theta[-marker_set]
+    }
+  }
   sigma_min=min(sapply(theta,function(x) min(c(diag(x$sigma1),diag(x$sigma2)))))/100
   remove_times=0
   # Run SCINA algorithm.
