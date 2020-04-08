@@ -36,8 +36,8 @@ The SCINA model takes at least two input data matrices to predict categories.
 1. A normalized matrix representing the gene expression levels. Columns correspond to cells, rows correspond to genes or protein symbols. Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_expmat.csv) as examples.
 2. A list contains multiple signature vectors. Each vector represents prior knowledge for one cell type, containing genes or protein symbols with high degree of detection. Please find the [.RData example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.RData) and the [.csv example](https://github.com/jcao89757/SCINA/tree/master/inst/extdata/example_signatures.csv) for the list of signatures.
 
-Both matrices can be uploaded from .Rdata files or .csv files. If the gene expression matrix is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column of the .csv file contains one signature list, and its column name should be the name of the cell type. Each signature vector contains genes or protein symbols. The signature vectors do not need to have the same length **(Fig.2)**.
-
+Both matrices can be uploaded from .Rdata files or .csv files. If the gene expression matrix is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column of the .csv file contains one signature list, and its column name should be the name of the cell type. Each signature vector contains genes or protein symbols. The signature vectors do not need to have the same length **(Fig.2)**. Improper signature lists may cause problems when running SCINA. Please check the **Trouble shooting**
+section at the end of this tutorial.
 ![exp_example](exp_example.jpg)
 
 **Fig.1 |** An example of a target dataset in .csv format.
@@ -107,5 +107,11 @@ plotheat.SCINA(exp, results, signatures)
 
 **Fig.3 |** An example of the output heatmap.
 
+## Trouble shooting
+According to the experience and issues from our users, we found two frequent conditions when SCINA may not work as expected. 
+1. If any lists of signature contain small numbers of genes and the parameter 'rm_overlap' is set to 'TRUE' (which is also the default setting), there are chances that those gene signatures become null lists after the overlapped genes are removed. We suggest that each signature list may have at least one unique gene that does not appear in any other signature lists, or users may set 'rm_overlap' to 'FALSE' to avoid such problems.
+2. If any lists of signature contain large numbers of genes (about 500 or more), users may fail on running SCINA. That happens because one of the intermediate variables becomes a large enough number to overflow the memory with too many signature genes. We suggest that keep the number of genes in each signature list 10 to 50 to achieve the best performance of SCINA. 
 ## Version update
 1.0.0: First release. (09-20-2018)
+1.1.0: Notation update. (09-30-2018)
+1.2.0: Bugs fixed. (07-18-2019) 
