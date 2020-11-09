@@ -111,6 +111,9 @@ density_ratio=function(e,mu1,mu2,inverse_sigma1,inverse_sigma2){
 #' plotheat.SCINA(exp,results,signatures)
 
 plotheat.SCINA=function(exp,results,signatures){
+  # Remove nonexist signature genes.
+  allgenes=row.names(exp)
+  signatures=sapply(signatures,function(x) unique(x[(!is.na(x)) & (x %in% allgenes)]),simplify=F)
   # Build side color bars.
   col_row=topo.colors(length(signatures))
   col_col=cm.colors(length(unique(results$cell_labels)))
