@@ -38,6 +38,7 @@ The SCINA model takes at least two input data matrices to predict categories.
 
 Both matrices can be uploaded from .Rdata files or .csv files. If the gene expression matrix is uploaded with .csv files, the format requirements are the same as the descriptions above **(Fig.1)**. If the signature identifier list is uploaded with .csv files, each column of the .csv file contains one signature list, and its column name should be the name of the cell type. Each signature vector contains genes or protein symbols. The signature vectors do not need to have the same length **(Fig.2)**. Improper signature lists may cause problems when running SCINA. Please check the **Trouble shooting**
 section at the end of this tutorial.
+
 ![exp_example](exp_example.jpg)
 
 **Fig.1 |** An example of a target dataset in .csv format.
