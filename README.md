@@ -84,6 +84,10 @@ The SCINA algorithm has multiple parameters that users may tune to achieve a bet
 |allow_unknown|A binary value, default 1 (TRUE). If 0 (FALSE) then no cell will be assigned to the 'unknown' category.|
 |log_file|A name string denoting a record for the SCINA running status, path may be included. Default is 'SCINA.log'.|
 
+**Note 1**: If all of the genes in one or more signatures are overlapped with other signatures in the same list, please incldue unoverlapped genes or set **rm_overlap=TRUE** to avoid errors.
+
+**Note 2**: If unclassified cells in the result are more than your expectation, and your aim is not seaching for rare cell types, please set **allow_unknown=TRUE**.
+
 ### Predict cell types with SCINA
 SCINA can generate two output matrices in a result list.
 ```{r}
