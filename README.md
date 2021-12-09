@@ -62,8 +62,9 @@ signatures=preprocess.signatures('your/path/to/example_signatures.csv')
 The example expression matrix we provided here is a normalized example. In most scenarios, users are encouraged to preprocess raw count outputs of their sequencing data. Considering the features of scRNA-seq data, we suggest that users may follow the pre-processing code below to achieve the best performance on their scRNA-seq raw counts. The log-transformation is always suggested to avoid heavy-tailed datasets.
 ```{r}
 #Install preprocessCore if required
-source("http://bioconductor.org/biocLite.R")
-biocLite("preprocessCore")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("preprocessCore")
 library('preprocessCore')
 #Read data
 exp_raw=read.csv('your/path/to/raw/expression_matrix.csv',row.names=1,stringsAsFactors = F)
